@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from "react-router-dom";
 
 type TodoItemProps = {
     description?: string;
@@ -6,7 +7,9 @@ type TodoItemProps = {
 }
 
 export default function TodoItem({description = 'A task', important = false}: TodoItemProps) {
-    return (
+        const params = useParams();
+        console.log(params);
+        return (
         <div>
             <div>
                 <p><span>Description: </span><span>{description}</span></p>
