@@ -10,6 +10,7 @@ import ToDoList, {TodoListProps} from './components/TodoList'
 import TodoItemDto from './ToDoItemDto'
 import AddTodoItem, {AddTodoItemProps} from './components/AddTodoItem'
 import EditTodoItem, {EditTodoItemProps} from './components/EditTodoItem'
+import Container from '@material-ui/core/Container'
 
 function App() {
   const dataItems = [
@@ -37,7 +38,6 @@ function App() {
   }
   const saveTodo = (item: TodoItemDto) => {
     const itemToChange = getItem(item.id);
-    debugger;
     itemToChange.description = item.description;
     itemToChange.important = item.important;
     itemToChange.label = item.label;
@@ -48,9 +48,14 @@ function App() {
     return data.find(item => item.id === id) || new TodoItemDto(id);
   }
 
+  const deleteItem = (id: string, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setData(data.filter(item => item.id !== id));
+  }
+
   const listProps: TodoListProps = {
       items: data,
-      onAdd: addTodo
+      onAdd: addTodo,
+      onDelete: deleteItem
   };
 
   const addTodoItemProps: AddTodoItemProps = {
@@ -80,18 +85,24 @@ function App() {
             <About />
           </Route>
           <Route exact path="/items/:id" render={({match}) => (
-            <EditTodoItem onSave={saveTodo} item={getItem(match.params.id)} />
+            <Container maxWidth="sm">
+              <EditTodoItem onSave={saveTodo} item={getItem(match.params.id)} />
+            </Container> 
             )} >
           </Route>
           <Route path="/items">
+          <Container maxWidth="sm">
             <ToDoList {...listProps} />
+          </Container> 
           </Route>
           <Route path="/" exact>
             <Home />
           </Route>
           <Route path="/add">
+          <Container maxWidth="sm">
             <h1> Check this out and create a new todo: </h1>
             <AddTodoItem {...addTodoItemProps}></AddTodoItem>
+            </Container> 
           </Route>
         </Switch>
       </div>

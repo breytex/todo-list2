@@ -17,18 +17,15 @@ import AddTodoItem, {AddTodoItemProps} from './AddTodoItem'
 export type TodoListProps = {
   items?: Array<TodoItemDto>;
   onAdd: (item: TodoItemDto) => void;
+  onDelete: (id: string, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const useStylesList = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      maxWidth: '36ch',
       backgroundColor: theme.palette.background.paper,
       color: 'black',
-    },
-    inline: {
-      display: 'inline',
     },
   }),
 );
@@ -48,20 +45,19 @@ const useStylesButton = makeStyles((theme: Theme) =>
 );
 
   
-export default function ToDoList({items = undefined, onAdd = (item: TodoItemDto) => {}} :TodoListProps) {
+export default function ToDoList({items, onAdd, onDelete}: TodoListProps) {
     const classesButton = useStylesButton();
     const classesList = useStylesList();
     let { path, url } = useRouteMatch();
     const addTodoItemProps: AddTodoItemProps = {
       onAdd: onAdd
     }
-    const [myItems, setMyItems] = useState<Array<TodoItemDto> | undefined>(items);
 
     return (
         <div>
             <List className={classesList.root}>
-              {myItems?.map((myItem, index) => (
-                <TodoItem item={myItem} />
+              {items?.map((myItem, index) => (
+                <TodoItem item={myItem} onDelete={onDelete}/>
               ))}              
               <Divider variant="inset" component="li" />
             </List>

@@ -22,7 +22,6 @@ const useStylesList = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      maxWidth: '36ch',
       backgroundColor: theme.palette.background.paper,
       color: 'black',
     },
@@ -33,6 +32,7 @@ const useStylesList = makeStyles((theme: Theme) =>
 );
 export type TodoItemProps = {
     item: TodoItemDto;
+    onDelete: (id: string, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   }
   
 export default function TodoItem(props: TodoItemProps) {
@@ -68,13 +68,11 @@ export default function TodoItem(props: TodoItemProps) {
                 <Button aria-label="edit" component={RouterLink} to={`${url}/${props.item.id}`}>
                     Edit
                 </Button>
+                <Button aria-label="delete" onClick={(e) => props.onDelete(props.item.id, e)}>
+                    Delete
+                </Button>
             </ListItemSecondaryAction>  
         </ListItem>
-        <Switch>
-            <Route path={`${path}/:id`}>
-                <h1> This is an item</h1>
-            </Route>
-        </Switch>
   </div>
     )
 }
