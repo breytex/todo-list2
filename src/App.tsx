@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import './App.css'
 import {
   BrowserRouter as Router,
@@ -6,10 +6,37 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import ToDoItems from './components/TodoItems'
+import ToDoList, {TodoListProps} from './components/TodoList'
 import ToDoItem from './components/TodoItem'
+import TodoItemDto from './ToDoItemDto';
+
 
 function App() {
+  const dataItems = [
+    {
+      label: 'Task 1',
+      description: 'Want to get a coffee?'
+    } as TodoItemDto,
+    {
+      label: 'Task 2',
+      description: 'Drink some tea'
+    } as TodoItemDto,
+    {
+      label: 'Task 3',
+      description: 'Order new coffee',
+      important: true
+    } as TodoItemDto,
+  ];
+
+  const [data, setData] = useState<Array<TodoItemDto> | undefined>(dataItems);
+  const addTodo = (item: TodoItemDto) => {
+    setData([...dataItems, item]);
+  }
+  const listProps: TodoListProps = {
+      items: data,
+      onAdd: addTodo
+  };
+  
   return (
     <Router>
       <div>
@@ -33,7 +60,7 @@ function App() {
             <ToDoItem />
           </Route>
           <Route path="/items">
-            <ToDoItems />
+            <ToDoList {...listProps} />
           </Route>
           <Route path="/" exact>
             <Home />
