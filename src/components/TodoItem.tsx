@@ -11,11 +11,8 @@ import { useParams } from "react-router-dom";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import {Button} from '@material-ui/core';
 import {
-    BrowserRouter as Router,
-    Route,
     Link as RouterLink,
-    useRouteMatch,
-    Switch
+    useRouteMatch
   } from 'react-router-dom';
   
 const useStylesList = makeStyles((theme: Theme) =>

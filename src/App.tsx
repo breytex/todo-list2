@@ -9,7 +9,7 @@ import {
 import ToDoList, {TodoListProps} from './components/TodoList'
 import TodoItemDto from './ToDoItemDto'
 import AddTodoItem, {AddTodoItemProps} from './components/AddTodoItem'
-import EditTodoItem, {EditTodoItemProps} from './components/EditTodoItem'
+import EditTodoItem from './components/EditTodoItem'
 import Container from '@material-ui/core/Container'
 
 function App() {

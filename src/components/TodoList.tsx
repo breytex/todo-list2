@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
 import {Button} from '@material-ui/core'
 import List from '@material-ui/core/List'
@@ -6,13 +6,8 @@ import Divider from '@material-ui/core/Divider'
 import TodoItem from './TodoItem'
 import TodoItemDto from '../ToDoItemDto'
 import {
-  BrowserRouter as Router,
-  Route,
-  Link as RouterLink,
-  useRouteMatch,
-  Switch
-} from 'react-router-dom';
-import AddTodoItem, {AddTodoItemProps} from './AddTodoItem'
+  Link as RouterLink
+} from 'react-router-dom'
 
 export type TodoListProps = {
   items?: Array<TodoItemDto>;
@@ -48,10 +43,6 @@ const useStylesButton = makeStyles((theme: Theme) =>
 export default function ToDoList({items, onAdd, onDelete}: TodoListProps) {
     const classesButton = useStylesButton();
     const classesList = useStylesList();
-    let { path, url } = useRouteMatch();
-    const addTodoItemProps: AddTodoItemProps = {
-      onAdd: onAdd
-    }
 
     return (
         <div>

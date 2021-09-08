@@ -10,7 +10,6 @@ const EditTodoItem = ({item, onSave}: EditTodoItemProps) => {
   const [description, setDescription] = useState(item.description)
   const [label, setLabel] = useState(item.label)
   const [important, setImportant] = useState(item.important)
-  const [id, setId] = useState(item.id)
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -32,7 +31,7 @@ const EditTodoItem = ({item, onSave}: EditTodoItemProps) => {
       <h1> Hey, you want to edit me? Let's go! </h1>
       <form className='add-form' onSubmit={onSubmit}>
         <div className='form-control'>
-          <label>Id={id}</label>
+          <label>Id={item.id}</label>
         </div>
         <div className='form-control'>
           <label>Task</label>
