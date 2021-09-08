@@ -8,8 +8,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import TodoItemDto from '../ToDoItemDto';
 import { useParams } from "react-router-dom";
-
-
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import {Button} from '@material-ui/core';
+import {
+    BrowserRouter as Router,
+    Route,
+    Link as RouterLink,
+    useRouteMatch,
+    Switch
+  } from 'react-router-dom';
+  
 const useStylesList = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -23,34 +31,50 @@ const useStylesList = makeStyles((theme: Theme) =>
     },
   }),
 );
-
-export default function TodoItem({label = 'Task', description = 'none', important = false}: TodoItemDto) {
+export type TodoItemProps = {
+    item: TodoItemDto;
+  }
+  
+export default function TodoItem(props: TodoItemProps) {
     const classesList = useStylesList();
     const params = useParams();
+    let { path, url } = useRouteMatch();
     console.log(params);
     return (
         <div>
         <ListItem alignItems="flex-start">
-        <ListItemIcon>
-          <FontAwesomeIcon icon={faCoffee}></FontAwesomeIcon>
-        </ListItemIcon>
-    <ListItemText
-      primary={label}
-      secondary={
-        <React.Fragment>
-          <Typography
-            component="span"
-            variant="body2"
-            className={classesList.inline}
-            color="textPrimary"
-          >
-            {description}
-          </Typography>
-          {" — I'll be in your neighborhood doing errands this…"}
-        </React.Fragment>
-      }
-    />
-  </ListItem>
+            <ListItemIcon>
+            <FontAwesomeIcon icon={faCoffee}></FontAwesomeIcon>
+            </ListItemIcon>
+            <ListItemText
+            primary={props.item.label}
+            secondary={
+                <React.Fragment>
+                <Typography
+                    component="span"
+                    variant="body2"
+                    className={classesList.inline}
+                    color="textPrimary"
+                >
+                    {props.item.description}
+                </Typography>
+                {" — This is a sub heading…"}
+                </React.Fragment>
+            }
+            />
+            <ListItemSecondaryAction>
+                <Button aria-label="edit" component={RouterLink} to={`${url}/${props.item.id}`}>
+                    Edit
+                </Button>
+            </ListItemSecondaryAction>  
+        </ListItem>
+        <Switch>
+            <Route path={`${path}/:id`}>
+                <h1> This is an item</h1>
+            </Route>
+            <Route path={path}>
+            </Route>
+        </Switch>
   </div>
     )
 }

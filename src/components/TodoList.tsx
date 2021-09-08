@@ -1,10 +1,18 @@
-import React from 'react'
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import {Button} from '@material-ui/core';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
+import React, {useState} from 'react'
+import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
+import {Button} from '@material-ui/core'
+import List from '@material-ui/core/List'
+import Divider from '@material-ui/core/Divider'
 import TodoItem from './TodoItem'
-import TodoItemDto from '../ToDoItemDto';
+import TodoItemDto from '../ToDoItemDto'
+import {
+  BrowserRouter as Router,
+  Route,
+  Link as RouterLink,
+  useRouteMatch,
+  Switch
+} from 'react-router-dom';
+import AddTodoItem, {AddTodoItemProps} from './AddTodoItem'
 
 export type TodoListProps = {
   items?: Array<TodoItemDto>;
@@ -38,19 +46,26 @@ const useStylesButton = makeStyles((theme: Theme) =>
     },
   }),
 );
+
   
 export default function ToDoList({items = undefined, onAdd = (item: TodoItemDto) => {}} :TodoListProps) {
     const classesButton = useStylesButton();
     const classesList = useStylesList();
-        return (
+    let { path, url } = useRouteMatch();
+    const addTodoItemProps: AddTodoItemProps = {
+      onAdd: onAdd
+    }
+    const [myItems, setMyItems] = useState<Array<TodoItemDto> | undefined>(items);
+
+    return (
         <div>
             <List className={classesList.root}>
-              {items?.map((item, index) => (
-                <TodoItem key={index} label={item.label} description={item.description} important={item.important} />
+              {myItems?.map((myItem, index) => (
+                <TodoItem item={myItem} />
               ))}              
               <Divider variant="inset" component="li" />
-            </List>              
-            <Button className={classesButton.root} color="primary">Add</Button>
-        </div>
+            </List>
+            <Button className={classesButton.root} color="primary" component={RouterLink} to="/add">Add</Button> 
+      </div>
     )
 }
