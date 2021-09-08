@@ -9,6 +9,7 @@ import {
 import ToDoList, {TodoListProps} from './components/TodoList'
 import TodoItemDto from './ToDoItemDto'
 import AddTodoItem, {AddTodoItemProps} from './components/AddTodoItem'
+import EditTodoItem, {EditTodoItemProps} from './components/EditTodoItem'
 
 function App() {
   const dataItems = [
@@ -34,6 +35,19 @@ function App() {
   const addTodo = (item: TodoItemDto) => {
     setData([...data, item]);
   }
+  const saveTodo = (item: TodoItemDto) => {
+    const itemToChange = getItem(item.id);
+    debugger;
+    itemToChange.description = item.description;
+    itemToChange.important = item.important;
+    itemToChange.label = item.label;
+
+    setData(data);
+  }
+  const getItem = (id: string): TodoItemDto => {
+    return data.find(item => item.id === id) || new TodoItemDto(id);
+  }
+
   const listProps: TodoListProps = {
       items: data,
       onAdd: addTodo
@@ -42,7 +56,6 @@ function App() {
   const addTodoItemProps: AddTodoItemProps = {
     onAdd: addTodo
   }
-
 
   return (
     <Router>
@@ -66,6 +79,10 @@ function App() {
           <Route path="/about">
             <About />
           </Route>
+          <Route exact path="/items/:id" render={({match}) => (
+            <EditTodoItem onSave={saveTodo} item={getItem(match.params.id)} />
+            )} >
+          </Route>
           <Route path="/items">
             <ToDoList {...listProps} />
           </Route>
@@ -73,8 +90,8 @@ function App() {
             <Home />
           </Route>
           <Route path="/add">
-                  <h1> Check this out and create a new todo: </h1>
-                  <AddTodoItem {...addTodoItemProps}></AddTodoItem>
+            <h1> Check this out and create a new todo: </h1>
+            <AddTodoItem {...addTodoItemProps}></AddTodoItem>
           </Route>
         </Switch>
       </div>

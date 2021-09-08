@@ -1,15 +1,16 @@
 import { FormEvent, useState } from 'react'
 import TodoItemDto from '../ToDoItemDto';
-import {v4 as uuid} from 'uuid'
 
-export type AddTodoItemProps = {
-    onAdd: (item: TodoItemDto) => void;
-  }
+export type EditTodoItemProps = {
+  item: TodoItemDto;
+  onSave: (item: TodoItemDto) => void;
+}
 
-const AddTodoItem = (props: AddTodoItemProps) => {
-  const [description, setDescription] = useState<string>('')
-  const [label, setLabel] = useState<string>('')
-  const [important, setImportant] = useState<boolean>(false)
+const EditTodoItem = ({item, onSave}: EditTodoItemProps) => {
+  const [description, setDescription] = useState(item.description)
+  const [label, setLabel] = useState(item.label)
+  const [important, setImportant] = useState(item.important)
+  const [id, setId] = useState(item.id)
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -19,21 +20,20 @@ const AddTodoItem = (props: AddTodoItemProps) => {
       return
     }
 
-    const item = new TodoItemDto(uuid());
-    item.label = label;
-    item.description = description;
-    item.important = important;
-
-    props.onAdd(item)
-
-    setDescription('')
-    setLabel('')
-    setImportant(false)
+    const editedItem = new TodoItemDto(item.id);
+    editedItem.label = label;
+    editedItem.description = description;
+    editedItem.important = important;
+    onSave(editedItem)
   }
 
   return (
     <div>
+      <h1> Hey, you want to edit me? Let's go! </h1>
       <form className='add-form' onSubmit={onSubmit}>
+        <div className='form-control'>
+          <label>Id={id}</label>
+        </div>
         <div className='form-control'>
           <label>Task</label>
           <input
@@ -64,7 +64,7 @@ const AddTodoItem = (props: AddTodoItemProps) => {
         <input type='submit' value='Save Item' className='btn btn-block' />
       </form>
     </div>
-    )
+  )
 }
 
-export default AddTodoItem
+export default EditTodoItem

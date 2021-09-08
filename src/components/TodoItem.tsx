@@ -40,6 +40,8 @@ export default function TodoItem(props: TodoItemProps) {
     const params = useParams();
     let { path, url } = useRouteMatch();
     console.log(params);
+    console.log(path);
+    console.log(url);
     return (
         <div>
         <ListItem alignItems="flex-start">
@@ -71,8 +73,6 @@ export default function TodoItem(props: TodoItemProps) {
         <Switch>
             <Route path={`${path}/:id`}>
                 <h1> This is an item</h1>
-            </Route>
-            <Route path={path}>
             </Route>
         </Switch>
   </div>
