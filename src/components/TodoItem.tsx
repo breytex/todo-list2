@@ -46,7 +46,7 @@ export default function TodoItem(props: TodoItemProps) {
         <div>
         <ListItem alignItems="flex-start">
             <ListItemIcon>
-            <FontAwesomeIcon icon={faCoffee}></FontAwesomeIcon>
+            <FontAwesomeIcon color={props.item.important ? "red" : "black"} icon={faCoffee}></FontAwesomeIcon>
             </ListItemIcon>
             <ListItemText
             primary={props.item.label}
