@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react'
-import TodoItemDto from '../ToDoItemDto';
+import {TodoItemDto} from '../ToDoItemDto';
 import {v4 as uuid} from 'uuid'
 
 export type AddTodoItemProps = {
@@ -19,11 +19,7 @@ const AddTodoItem = (props: AddTodoItemProps) => {
       return
     }
 
-    const item = new TodoItemDto(uuid());
-    item.label = label;
-    item.description = description;
-    item.important = important;
-
+    const item = {id: uuid(), description, important, label};
     props.onAdd(item)
 
     setDescription('')

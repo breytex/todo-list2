@@ -7,32 +7,33 @@ import {
   Link
 } from 'react-router-dom';
 import ToDoList, {TodoListProps} from './components/TodoList'
-import TodoItemDto from './ToDoItemDto'
+import {TodoItemDto} from './ToDoItemDto'
 import AddTodoItem, {AddTodoItemProps} from './components/AddTodoItem'
 import EditTodoItem from './components/EditTodoItem'
 import Container from '@material-ui/core/Container'
 
-function App() {
-  const dataItems = [
-    {
-      id: '1',
-      label: 'Task 1',
-      description: 'Want to get a coffee?'
-    } as TodoItemDto,
-    {
-      id: '2',
-      label: 'Task 2',
-      description: 'Drink some tea'
-    } as TodoItemDto,
-    {
-      id: '3',
-      label: 'Task 3',
-      description: 'Order new coffee',
-      important: true
-    } as TodoItemDto,
-  ];
+const dataItems: TodoItemDto[] = [
+  {
+    id: '1',
+    label: 'Task 1',
+    description: 'Want to get a coffee?'
+  },
+  {
+    id: '2',
+    label: 'Task 2',
+    description: 'Drink some tea'
+  },
+  {
+    id: '3',
+    label: 'Task 3',
+    description: 'Order new coffee',
+    important: true
+  },
+];
 
-  const [data, setData] = useState<Array<TodoItemDto>>(dataItems);
+function App() {
+
+  const [data, setData] = useState<TodoItemDto[]>(dataItems);
   const addTodo = (item: TodoItemDto) => {
     setData([...data, item]);
   }
@@ -45,7 +46,7 @@ function App() {
     setData(data);
   }
   const getItem = (id: string): TodoItemDto => {
-    return data.find(item => item.id === id) || new TodoItemDto(id);
+    return data.find(item => item.id === id) || {id};
   }
 
   const deleteItem = (id: string, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

@@ -6,7 +6,7 @@ import ListItemIcon from '@material-ui/core/ListItemAvatar';
 import Typography from '@material-ui/core/Typography';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-import TodoItemDto from '../ToDoItemDto';
+import {TodoItemDto} from '../ToDoItemDto';
 import { useParams } from "react-router-dom";
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import {Button} from '@material-ui/core';

@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react'
-import TodoItemDto from '../ToDoItemDto';
+import {TodoItemDto} from '../ToDoItemDto';
 
 export type EditTodoItemProps = {
   item: TodoItemDto;
@@ -19,10 +19,7 @@ const EditTodoItem = ({item, onSave}: EditTodoItemProps) => {
       return
     }
 
-    const editedItem = new TodoItemDto(item.id);
-    editedItem.label = label;
-    editedItem.description = description;
-    editedItem.important = important;
+    const editedItem = {id: item.id, label, description, important};
     onSave(editedItem)
   }
 

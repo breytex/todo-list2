@@ -4,7 +4,7 @@ import {Button} from '@material-ui/core'
 import List from '@material-ui/core/List'
 import Divider from '@material-ui/core/Divider'
 import TodoItem from './TodoItem'
-import TodoItemDto from '../ToDoItemDto'
+import {TodoItemDto} from '../ToDoItemDto'
 import {
   Link as RouterLink
 } from 'react-router-dom'
